@@ -1,0 +1,94 @@
+<body>
+  <h1 id="counter">Tasks Complete: 0/15</h1>
+  <button id="addtask" onclick="addtask()">Add Task</button>
+  <div id="lbo"><div id="loadbar"></div></div>
+</body>
+<style>
+#lbo {
+  width: calc(100% - 5dvh);
+  left: 50%;
+  height: 5dvh;
+  top: 50%;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  border-radius: 5dvh;
+  outline: 1.5dvh solid white;
+  overflow: hidden;
+}
+#loadbar {
+  background-color: #4CA828;
+  width: 0;
+  height: 100%;
+  position: absolute;
+  transition: 1s width;
+  left: 0;
+  top: 0;
+}
+#addtask {
+  border: none;
+  border-radius: 2.5dvh;
+  width: 15dvh;
+  height: 4dvh;
+  position: absolute;
+  top: 57dvh;
+  left: 50%;
+  background-color: white;
+  color: black;
+  transform: translate(-50%, 0%);
+  font-family: amongus;
+  text-align: center;
+  font-size: 2.5dvh;
+}
+#counter {
+  position: absolute;
+  width: 100%;
+  font-size: 3.5dvh;
+  text-align: center;
+  white-space: nowrap;
+  font-weight: normal;
+  top: 37dvh;
+  left: 50%;
+  transform: translate(-50%, 0%);
+  transition: 1s color;
+}
+  body {
+    background-color: black;
+    color: white;
+    font-family: amongus;
+  }
+  @font-face {
+    src: url("VCR OSD Mono 400.ttf");
+    font-family: amongus;
+  }
+</style>
+<script>
+  numtasksdone = 0;
+  numinc = 0;
+  function addtask() {
+    numtasksdone++;
+    if (numtasksdone == 15) {
+      numinc++;
+      numtasksdone = 0;
+    }
+    if (numinc == 3) {
+      document.getElementById("counter").innerHTML = "All Tasks Completed.";
+      document.getElementById("loadbar").style.width = 100 + "%";
+      document.getElementById("counter").style.color = "#4CA828";
+    } else if (numtasksdone != 0) {
+      document.getElementById("counter").style.color = "white";
+      document.getElementById("loadbar").style.width = numtasksdone / 15 * 100  + "%";
+      document.getElementById("counter").innerHTML = "Tasks Complete: ".concat(numtasksdone.toString(), "/15");
+    } else {
+      document.getElementById("loadbar").style.width = 100 + "%";
+      document.getElementById("counter").style.color = "#4CA828";
+      document.getElementById("counter").innerHTML = "Tasks Complete: 15/15";
+      setTimeout(function() {
+        if (numtasksdone == 0) {
+          document.getElementById("loadbar").style.width = 0 + "%";
+      document.getElementById("counter").style.color = "white";
+      document.getElementById("counter").innerHTML = "Tasks Complete: 0/15";
+        }
+      }, 2000);
+    }
+  }
+</script>
